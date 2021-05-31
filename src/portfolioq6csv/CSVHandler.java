@@ -25,15 +25,46 @@ public class CSVHandler {
             
             while ((nextLine = reader.readNext()) != null) {
                 if (isTitle) {
-                    System.out.println(nextLine[0]);
                     setTitle(nextLine);
                     setColumnCount(getTitle().length);
                     isTitle = false;
                 } else {
-                    System.out.println(nextLine[0]);
                     nextResult = new RowData();
-                
-                    nextResult.setRowData(nextLine);
+                    switch(getColumnCount()) {
+                        case 1:
+                            nextResult.setData1(nextLine[0]);
+                            break;
+                        case 2:
+                            nextResult.setData1(nextLine[0]);
+                            nextResult.setData2(nextLine[1]);
+                            break;
+                        case 3:
+                            nextResult.setData1(nextLine[0]);
+                            nextResult.setData2(nextLine[1]);
+                            nextResult.setData3(nextLine[2]);
+                            break;
+                        case 4:
+                            nextResult.setData1(nextLine[0]);
+                            nextResult.setData2(nextLine[1]);
+                            nextResult.setData3(nextLine[2]);
+                            nextResult.setData4(nextLine[3]);
+                            break;
+                        case 5:
+                            nextResult.setData1(nextLine[0]);
+                            nextResult.setData2(nextLine[1]);
+                            nextResult.setData3(nextLine[2]);
+                            nextResult.setData4(nextLine[3]);
+                            nextResult.setData5(nextLine[4]);
+                            break;
+                        case 6:
+                            nextResult.setData1(nextLine[0]);
+                            nextResult.setData2(nextLine[1]);
+                            nextResult.setData3(nextLine[2]);
+                            nextResult.setData4(nextLine[3]);
+                            nextResult.setData5(nextLine[4]);
+                            nextResult.setData6(nextLine[5]);
+                            break;
+                    }
                     results.add(nextResult);
                 }
             }
@@ -51,14 +82,50 @@ public class CSVHandler {
 
         CSVWriter writer;
         File file = new File("editedData.csv");
-
+        String[] nextData = new String[getColumnCount()];
+        
         try {
             writer = new CSVWriter(new FileWriter(file));
-
+            
             writer.writeNext(getTitle());
 
             for (RowData data : results) {
-                String[] nextData = data.getRowData();
+                switch(getColumnCount()) {
+                    case 1:
+                        nextData[0] = data.getData1();
+                        break;
+                    case 2:
+                        nextData[0] = data.getData1();
+                        nextData[1] = data.getData2();
+                        break;
+                    case 3:
+                        nextData[0] = data.getData1();
+                        nextData[1] = data.getData2();
+                        nextData[2] = data.getData3();
+                        break;
+                    case 4:
+                        nextData[0] = data.getData1();
+                        nextData[1] = data.getData2();
+                        nextData[2] = data.getData3();
+                        nextData[3] = data.getData4();
+                        break;
+                    case 5:
+                        nextData[0] = data.getData1();
+                        nextData[1] = data.getData2();
+                        nextData[2] = data.getData3();
+                        nextData[3] = data.getData4();
+                        nextData[4] = data.getData5();
+                        break;
+                    case 6:
+                        nextData[0] = data.getData1();
+                        nextData[1] = data.getData2();
+                        nextData[2] = data.getData3();
+                        nextData[3] = data.getData4();
+                        nextData[4] = data.getData5();
+                        nextData[5] = data.getData6();                        
+                        break;
+                }
+                
                 writer.writeNext(nextData);
             }
             writer.close();
