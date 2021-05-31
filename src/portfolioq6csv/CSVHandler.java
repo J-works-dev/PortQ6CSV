@@ -25,12 +25,12 @@ public class CSVHandler {
             
             while ((nextLine = reader.readNext()) != null) {
                 if (isTitle) {
-                    System.out.println(nextLine);
+                    System.out.println(nextLine[0]);
                     setTitle(nextLine);
                     setColumnCount(getTitle().length);
                     isTitle = false;
                 } else {
-                    System.out.println(nextLine);
+                    System.out.println(nextLine[0]);
                     nextResult = new RowData();
                 
                     nextResult.setRowData(nextLine);
@@ -43,7 +43,7 @@ public class CSVHandler {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
+        System.out.println("result: " + results);
         return results;
     }
 

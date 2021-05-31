@@ -18,6 +18,7 @@ import javafx.scene.layout.*;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import java.io.File;
+import java.util.ArrayList;
 
 public class PortfolioQ6CSV extends Application {
     
@@ -32,7 +33,7 @@ public class PortfolioQ6CSV extends Application {
     
     @Override
     public void start(Stage stage) {
-        newData.setRowData(datas);
+//        newData.setRowData(datas);
         stage.setTitle("Portfolio Q6 Read & Write CSV");
         table = new TableView<>();
         //buttons
@@ -60,30 +61,39 @@ public class PortfolioQ6CSV extends Application {
     }
     public void makeWindow() {
         System.out.println("function accessed");
+        System.out.println(CSVHandler.getColumnCount());
+        System.out.println(test[0]);
+        System.out.println(datas[0]);
+        System.out.println(CSVHandler.getTitle()[0]);
 //        TableColumn<RowData, String>[] tableColumns = new TableColumn[CSVHandler.getColumnCount()];
-//        for (int i = 0; i < CSVHandler.getColumnCount(); i++) {
+        ArrayList<TableColumn> tableColumns = new ArrayList<TableColumn>();
+        for (int i = 0; i < CSVHandler.getColumnCount(); i++) {
+//            String name = CSVHandler.getTitle()[i];            
+//            tableColumns[i].add(new TableColumn<>(CSVHandler.getTitle()[i]));
+            TableColumn<RowData, Integer> temp = new TableColumn<>(CSVHandler.getTitle()[i]);
+            temp.setMinWidth(100);
+            temp.setCellValueFactory(new PropertyValueFactory<>(RowData.getRowData()[i]));
+            tableColumns.add(temp);
+            RowData.getRowData();
+//            tableColumns[i].setMaxWidth(100);
+//            tableColumns[i].setCellValueFactory(new PropertyValueFactory<>(RowData.getRowData()[i]));
+            
+        }
+        for (int i = 0; i < CSVHandler.getColumnCount(); i++) {
+            table.getColumns().add(tableColumns.get(i));
+        }
+//        TableColumn<RowData, String>[] tableColumns = new TableColumn[4];
+//        for (int i = 0; i < 3; i++) {
 //            RowData.getRowData();
-//            tableColumns[i] = new TableColumn<>(CSVHandler.getTitle()[i]);
+//            tableColumns[i] = new TableColumn<>(test[i]);
 //            tableColumns[i].setMaxWidth(100);
 //            tableColumns[i].setCellValueFactory(new PropertyValueFactory<>(RowData.getRowData()[i]));
 //            
 //        }
-//        for (int i = 0; i < CSVHandler.getColumnCount(); i++) {
+//        for (int i = 0; i < 4; i++) {
 //            table = new TableView<>();
 //            table.getColumns().add(tableColumns[i]);
 //        }
-        TableColumn<RowData, String>[] tableColumns = new TableColumn[4];
-        for (int i = 0; i < 4; i++) {
-            RowData.getRowData();
-            tableColumns[i] = new TableColumn<>(test[i]);
-            tableColumns[i].setMaxWidth(100);
-            tableColumns[i].setCellValueFactory(new PropertyValueFactory<>(RowData.getRowData()[i]));
-            
-        }
-        for (int i = 0; i < 4; i++) {
-            table = new TableView<>();
-            table.getColumns().add(tableColumns[i]);
-        }
 //        vBox.getChildren().addAll(table, hBox);
 //        scene = new Scene(vBox);
 //        stage.setScene(scene);
@@ -102,8 +112,9 @@ public class PortfolioQ6CSV extends Application {
         FileChooser fileChooser = new FileChooser();
         File file = fileChooser.showOpenDialog(stage);
         if (file != null) {
-            table.setItems(CSVHandler.readCSV(file));
-            
+            ArrayList<RowData> results = new ArrayList<RowData>();
+            results = (ArrayList<RowData>) CSVHandler.readCSV(file);
+            table.setItems();
             makeWindow();
         }
     }
