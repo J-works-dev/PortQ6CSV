@@ -220,6 +220,7 @@ public class PortfolioQ6CSV extends Application {
             CSVHandler.setColumnCount(0);
             
             results = CSVHandler.readCSV(file);
+            
             makeTable();
             table.setItems(results);
         }

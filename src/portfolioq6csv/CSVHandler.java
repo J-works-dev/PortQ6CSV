@@ -17,7 +17,7 @@ public class CSVHandler {
 
         ObservableList<RowData> results = FXCollections.observableArrayList();
         CSVReader reader;
-        System.out.println("CSV handler accessed");
+//        System.out.println("CSV handler accessed");
         try {
             reader = new CSVReader(new FileReader(fileName));
             String[] nextLine;
@@ -74,7 +74,7 @@ public class CSVHandler {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        System.out.println("result: " + results);
+//        System.out.println("result: " + results);
         return results;
     }
 
